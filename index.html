@@ -152,7 +152,6 @@
       font-family: 'Arial Narrow', Arial, sans-serif;
     }
 
-    /* 아이패드 */
     @media (min-width: 600px) {
       .uiq-wrap { max-width: 700px; }
       .uiq-logo-img { width: 380px; margin-bottom: 30px; }
@@ -175,7 +174,7 @@
     <div class="station-badge">⚡ 3 SECONDS CHALLENGE ⚡</div>
 
     <div class="timer-ring-wrap">
-      <svg id="ringsvg" width="250" height="250" viewBox="0 0 250 250">
+      <svg width="100%" height="100%" viewBox="0 0 250 250">
         <circle class="ring-bg" cx="125" cy="125" r="105"/>
         <circle class="ring-progress" id="ring" cx="125" cy="125" r="105"/>
       </svg>
@@ -210,15 +209,73 @@
     const mainBtn   = document.getElementById('mainBtn');
     const resetBtn  = document.getElementById('resetBtn');
     const hintText  = document.getElementById('hintText');
-    const ringsvg   = document.getElementById('ringsvg');
-    const ringWrap  = document.querySelector('.timer-ring-wrap');
 
     ring.style.strokeDasharray  = CIRCUMFERENCE;
     ring.style.strokeDashoffset = CIRCUMFERENCE;
 
-    // 아이패드일 때 SVG 크기 맞추기
-    function resizeSvg() {
-      const size = ringWrap.offsetWidth;
-      ringsvg.setAttribute('width', size);
-      ringsvg.setAttribute('height', size);
-      ringsvg.setAttribute('viewB
+    function setRing(sec) {
+      const ratio  = Math.min(sec / MAX, 1);
+      const offset = CIRCUMFERENCE * (1 - ratio);
+      ring.style.strokeDashoffset = offset;
+      ring.classList.remove('success', 'over');
+      if (sec >= TARGET && sec <= TARGET + 0.3) ring.classList.add('success');
+      else if (sec > TARGET + 0.3)              ring.classList.add('over');
+    }
+
+    function tick() {
+      elapsed = (performance.now() - startTime) / 1000;
+      timerNum.textContent = elapsed.toFixed(2);
+      setRing(elapsed);
+      if (elapsed < MAX) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        stopTimer();
+      }
+    }
+
+    function stopTimer() {
+      cancelAnimationFrame(rafId);
+      state = 'done';
+      const diff = Math.abs(elapsed - TARGET);
+      if      (elapsed.toFixed(2) === '3.00')    { resultMsg.textContent = 'PERFECT!';  resultMsg.className = 'result-msg show success'; }
+      else if (elapsed > TARGET && diff <= 0.99) { resultMsg.textContent = 'SO CLOSE!'; resultMsg.className = 'result-msg show success'; }
+      else if (elapsed < TARGET)                 { resultMsg.textContent = 'TOO FAST!'; resultMsg.className = 'result-msg show'; }
+      else                                       { resultMsg.textContent = 'TOO SLOW!'; resultMsg.className = 'result-msg show over'; }
+      mainBtn.style.display = 'none';
+      resetBtn.style.display = 'block';
+      hintText.textContent = '결과: ' + elapsed.toFixed(2) + '초  |  목표: 3.00초';
+    }
+
+    function handleBtn() {
+      if (state === 'idle') {
+        state = 'running';
+        startTime = performance.now();
+        mainBtn.textContent = 'STOP';
+        mainBtn.classList.add('stop');
+        hintText.textContent = '3초에 멈추세요!';
+        resultMsg.className = 'result-msg';
+        rafId = requestAnimationFrame(tick);
+      } else if (state === 'running') {
+        cancelAnimationFrame(rafId);
+        stopTimer();
+      }
+    }
+
+    function handleReset() {
+      cancelAnimationFrame(rafId);
+      state = 'idle';
+      elapsed = 0;
+      startTime = null;
+      timerNum.textContent = '0.00';
+      ring.style.strokeDashoffset = CIRCUMFERENCE;
+      ring.classList.remove('success', 'over');
+      resultMsg.className = 'result-msg';
+      mainBtn.textContent = 'START';
+      mainBtn.classList.remove('stop');
+      mainBtn.style.display = 'block';
+      resetBtn.style.display = 'none';
+      hintText.textContent = '버튼을 눌러 시작하세요';
+    }
+  </script>
+</body>
+</html>
