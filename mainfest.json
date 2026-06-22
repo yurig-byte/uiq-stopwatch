@@ -7,7 +7,7 @@
   "theme_color": "#5BC8E8",
   "icons": [
     {
-      "src": "cooling-time-logo-sky.png",
+      "src": "icon.png",
       "sizes": "192x192",
       "type": "image/png"
     }
