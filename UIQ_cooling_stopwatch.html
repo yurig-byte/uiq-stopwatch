@@ -206,7 +206,7 @@
 
     function tick() {
       elapsed = (performance.now() - startTime) / 1000;
-      timerNum.textContent = elapsed.toFixed(2);
+      timerNum.textContent = elapsed.toFixed(1);
       setRing(elapsed);
       if (elapsed < MAX) {
         rafId = requestAnimationFrame(tick);
@@ -225,7 +225,7 @@
       else                       { resultMsg.textContent = 'TOO SLOW!'; resultMsg.className = 'result-msg show over'; }
       mainBtn.style.display = 'none';
       resetBtn.style.display = 'block';
-      hintText.textContent = '결과: ' + elapsed.toFixed(2) + '초  |  목표: 3.00초';
+      hintText.textContent = '결과: ' + elapsed.toFixed(1) + '초  |  목표: 3.00초';
     }
 
     function handleBtn() {
