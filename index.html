@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <link rel="apple-touch-icon" href="icon2.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="UIQ 3SEC">
-  <link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="UIQ 3SEC">
+<link rel="manifest" href="manifest.json">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UIQ Cooling Time Charge Station</title>
@@ -28,21 +27,21 @@
       justify-content: center;
       padding: 2.5rem 2rem;
       width: 100%;
-      max-width: 480px;
+      max-width: 420px;
     }
 
     .uiq-logo-img {
       width: 250px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       object-fit: contain;
     }
 
     .station-badge {
       color: #fff;
-      font-size: 18px;
+      font-size: 24px;
       font-weight: 300;
       white-space: nowrap;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
       text-align: center;
     }
 
@@ -151,32 +150,19 @@
       text-align: center;
       font-family: 'Arial Narrow', Arial, sans-serif;
     }
-
-    @media (min-width: 600px) {
-      .uiq-wrap { max-width: 700px; }
-      .uiq-logo-img { width: 380px; margin-bottom: 30px; }
-      .station-badge { font-size: 28px; margin-bottom: 24px; }
-      .timer-ring-wrap { width: 420px; height: 420px; margin-bottom: 30px; }
-      .timer-num { font-size: 130px; }
-      .timer-unit { font-size: 22px; }
-      .target-line { font-size: 22px; margin-bottom: 30px; }
-      .result-msg { font-size: 52px; min-height: 70px; }
-      .btn-main { font-size: 36px; padding: 22px 90px; min-width: 320px; }
-      .btn-main.reset { font-size: 24px; padding: 14px 50px; }
-      .hint { font-size: 18px; }
-    }
   </style>
 </head>
 <body>
   <div class="uiq-wrap">
 
     <img class="uiq-logo-img" src="cooling-time-logo-sky.png" alt="UIQ logo">
+
     <div class="station-badge">⚡ 3 SECONDS CHALLENGE ⚡</div>
 
     <div class="timer-ring-wrap">
-      <svg width="100%" height="100%" viewBox="0 0 250 250">
-        <circle class="ring-bg" cx="125" cy="125" r="105"/>
-        <circle class="ring-progress" id="ring" cx="125" cy="125" r="105"/>
+      <svg width="240" height="240" viewBox="0 0 240 240">
+        <circle class="ring-bg" cx="120" cy="120" r="105"/>
+        <circle class="ring-progress" id="ring" cx="120" cy="120" r="105"/>
       </svg>
       <div class="timer-display">
         <div class="timer-num" id="timerNum">0.00</div>
@@ -237,10 +223,10 @@
       cancelAnimationFrame(rafId);
       state = 'done';
       const diff = Math.abs(elapsed - TARGET);
-      if      (elapsed.toFixed(2) === '3.00')    { resultMsg.textContent = 'PERFECT!';  resultMsg.className = 'result-msg show success'; }
-      else if (elapsed > TARGET && diff <= 0.99) { resultMsg.textContent = 'SO CLOSE!'; resultMsg.className = 'result-msg show success'; }
-      else if (elapsed < TARGET)                 { resultMsg.textContent = 'TOO FAST!'; resultMsg.className = 'result-msg show'; }
-      else                                       { resultMsg.textContent = 'TOO SLOW!'; resultMsg.className = 'result-msg show over'; }
+      if      (elapsed.toFixed(2) === '3.00')              { resultMsg.textContent = 'PERFECT!';  resultMsg.className = 'result-msg show success'; }
+else if (elapsed > TARGET && diff <= 0.99)            { resultMsg.textContent = 'SO CLOSE!'; resultMsg.className = 'result-msg show success'; }
+else if (elapsed < TARGET)                            { resultMsg.textContent = 'TOO FAST!'; resultMsg.className = 'result-msg show'; }
+else                                                  { resultMsg.textContent = 'TOO SLOW!'; resultMsg.className = 'result-msg show over'; }
       mainBtn.style.display = 'none';
       resetBtn.style.display = 'block';
       hintText.textContent = '결과: ' + elapsed.toFixed(2) + '초  |  목표: 3.00초';
