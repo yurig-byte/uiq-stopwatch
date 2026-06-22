@@ -2,9 +2,9 @@
 <html lang="ko">
 <head>
   <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="UIQ 3SEC">
-<link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="UIQ 3SEC">
+  <link rel="manifest" href="manifest.json">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UIQ Cooling Time Charge Station</title>
@@ -27,29 +27,29 @@
       justify-content: center;
       padding: 2.5rem 2rem;
       width: 100%;
-      max-width: 420px;
+      max-width: 90vw;
     }
 
     .uiq-logo-img {
-      width: 250px;
-      margin-bottom: 30px;
+      width: min(250px, 55vw);
+      margin-bottom: 3vw;
       object-fit: contain;
     }
 
     .station-badge {
       color: #fff;
-      font-size: 30px;
+      font-size: min(30px, 4.5vw);
       font-weight: 300;
       white-space: nowrap;
-      margin-bottom: 16px;
+      margin-bottom: 2vw;
       text-align: center;
     }
 
     .timer-ring-wrap {
       position: relative;
-      width: 250px;
-      height: 250px;
-      margin-bottom: 20px;
+      width: min(250px, 50vw);
+      height: min(250px, 50vw);
+      margin-bottom: 2vw;
     }
 
     .timer-ring-wrap svg { transform: rotate(-90deg); }
@@ -83,35 +83,35 @@
 
     .timer-num {
       font-family: Impact, 'Arial Narrow', Arial, sans-serif;
-      font-size: 76px;
+      font-size: min(76px, 15vw);
       color: #fff;
       line-height: 1;
     }
 
     .timer-unit {
-      font-size: 15px;
+      font-size: min(15px, 2.5vw);
       font-weight: 700;
       color: rgba(255,255,255,0.8);
       font-family: 'Arial Narrow', Arial, sans-serif;
     }
 
     .target-line {
-      font-size: 15px;
+      font-size: min(15px, 2.5vw);
       font-weight: 700;
       color: #fff;
       opacity: 0.9;
-      margin-bottom: 20px;
+      margin-bottom: 2vw;
       text-align: center;
       font-family: 'Arial Narrow', Arial, sans-serif;
     }
 
     .result-msg {
       font-family: Impact, 'Arial Narrow', Arial, sans-serif;
-      font-size: 30px;
+      font-size: min(30px, 5vw);
       color: #fff;
-      min-height: 42px;
+      min-height: 5vw;
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 2vw;
       opacity: 0;
       transition: opacity 0.3s;
     }
@@ -126,12 +126,12 @@
       border: none;
       border-radius: 50px;
       font-family: Impact, 'Arial Narrow', Arial, sans-serif;
-      font-size: 24px;
-      padding: 14px 52px;
+      font-size: min(24px, 4vw);
+      padding: min(14px, 2vw) min(52px, 8vw);
       cursor: pointer;
-      margin-bottom: 10px;
+      margin-bottom: 1vw;
       transition: transform 0.1s;
-      min-width: 200px;
+      min-width: min(200px, 40vw);
     }
 
     .btn-main:active { transform: scale(0.95); }
@@ -139,14 +139,14 @@
     .btn-main.reset  {
       background: rgba(255,255,255,0.2);
       color: #fff;
-      font-size: 17px;
-      padding: 10px 36px;
+      font-size: min(17px, 3vw);
+      padding: min(10px, 1.5vw) min(36px, 5vw);
     }
 
     .hint {
-      font-size: 12px;
+      font-size: min(12px, 2vw);
       color: rgba(255,255,255,0.7);
-      margin-top: 6px;
+      margin-top: 1vw;
       text-align: center;
       font-family: 'Arial Narrow', Arial, sans-serif;
     }
@@ -156,11 +156,10 @@
   <div class="uiq-wrap">
 
     <img class="uiq-logo-img" src="cooling-time-logo-sky.png" alt="UIQ logo">
-
     <div class="station-badge">⚡ 3 SECONDS CHALLENGE ⚡</div>
 
     <div class="timer-ring-wrap">
-      <svg width="240" height="240" viewBox="0 0 240 240">
+      <svg width="240" height="240" viewBox="0 0 240 240" style="width:100%;height:100%;">
         <circle class="ring-bg" cx="120" cy="120" r="105"/>
         <circle class="ring-progress" id="ring" cx="120" cy="120" r="105"/>
       </svg>
@@ -223,10 +222,10 @@
       cancelAnimationFrame(rafId);
       state = 'done';
       const diff = Math.abs(elapsed - TARGET);
-      if      (elapsed.toFixed(2) === '3.00')              { resultMsg.textContent = 'PERFECT!';  resultMsg.className = 'result-msg show success'; }
-else if (elapsed > TARGET && diff <= 0.99)            { resultMsg.textContent = 'SO CLOSE!'; resultMsg.className = 'result-msg show success'; }
-else if (elapsed < TARGET)                            { resultMsg.textContent = 'TOO FAST!'; resultMsg.className = 'result-msg show'; }
-else                                                  { resultMsg.textContent = 'TOO SLOW!'; resultMsg.className = 'result-msg show over'; }
+      if      (elapsed.toFixed(2) === '3.00')    { resultMsg.textContent = 'PERFECT!';  resultMsg.className = 'result-msg show success'; }
+      else if (elapsed > TARGET && diff <= 0.99) { resultMsg.textContent = 'SO CLOSE!'; resultMsg.className = 'result-msg show success'; }
+      else if (elapsed < TARGET)                 { resultMsg.textContent = 'TOO FAST!'; resultMsg.className = 'result-msg show'; }
+      else                                       { resultMsg.textContent = 'TOO SLOW!'; resultMsg.className = 'result-msg show over'; }
       mainBtn.style.display = 'none';
       resetBtn.style.display = 'block';
       hintText.textContent = '결과: ' + elapsed.toFixed(2) + '초  |  목표: 3.00초';
