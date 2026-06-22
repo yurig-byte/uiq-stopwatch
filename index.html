@@ -219,8 +219,8 @@
       cancelAnimationFrame(rafId);
       state = 'done';
       const diff = Math.abs(elapsed - TARGET);
-      if      (diff <= 0.1)     { resultMsg.textContent = 'PERFECT!';  resultMsg.className = 'result-msg show success'; }
-      else if (diff <= 0.4)      { resultMsg.textContent = 'SO CLOSE!'; resultMsg.className = 'result-msg show success'; }
+      if      (diff <= 0)     { resultMsg.textContent = 'PERFECT!';  resultMsg.className = 'result-msg show success'; }
+      else if (diff <= 0.2)      { resultMsg.textContent = 'SO CLOSE!'; resultMsg.className = 'result-msg show success'; }
       else if (elapsed < TARGET) { resultMsg.textContent = 'TOO FAST!'; resultMsg.className = 'result-msg show'; }
       else                       { resultMsg.textContent = 'TOO SLOW!'; resultMsg.className = 'result-msg show over'; }
       mainBtn.style.display = 'none';
