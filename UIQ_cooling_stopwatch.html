@@ -219,10 +219,10 @@
       cancelAnimationFrame(rafId);
       state = 'done';
       const diff = Math.abs(elapsed - TARGET);
-      if      (elapsed.toFixed(2) === '3.00') { resultMsg.textContent = 'PERFECT!';  resultMsg.className = 'result-msg show success'; }
-else if (diff <= 0.99)                  { resultMsg.textContent = 'SO CLOSE!'; resultMsg.className = 'result-msg show success'; }
-else if (elapsed < TARGET)              { resultMsg.textContent = 'TOO FAST!'; resultMsg.className = 'result-msg show'; }
-else                                    { resultMsg.textContent = 'TOO SLOW!'; resultMsg.className = 'result-msg show over'; }
+      if      (elapsed.toFixed(2) === '3.00')              { resultMsg.textContent = 'PERFECT!';  resultMsg.className = 'result-msg show success'; }
+else if (elapsed > TARGET && diff <= 0.99)            { resultMsg.textContent = 'SO CLOSE!'; resultMsg.className = 'result-msg show success'; }
+else if (elapsed < TARGET)                            { resultMsg.textContent = 'TOO FAST!'; resultMsg.className = 'result-msg show'; }
+else                                                  { resultMsg.textContent = 'TOO SLOW!'; resultMsg.className = 'result-msg show over'; }
       mainBtn.style.display = 'none';
       resetBtn.style.display = 'block';
       hintText.textContent = '결과: ' + elapsed.toFixed(2) + '초  |  목표: 3.00초';
